@@ -1,0 +1,10 @@
+{
+    "go.buildOnSave": "off",
+    "go.lintOnSave": "workspace",
+    "go.vetOnSave": "workspace",
+    "go.useCodeSnippetsOnFunctionSuggest": true,
+    "editor.formatOnSave": true,
+    "go.formatTool": "gofmt",
+    "go.testOnSave": false,
+    "go.coverOnSave": false
+}
