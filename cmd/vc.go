@@ -31,7 +31,7 @@ func runVc(cmd *cobra.Command, args []string) error {
 	}
 	currentBranch := strings.TrimSpace(string(branchOutput))
 
-	fmt.Printf("%s %s\n", root.Render("Current branch:"), currentBranch)
+	fmt.Printf("%s %s\n", orange.Render("Current branch:"), currentBranch)
 
 	if currentBranch != "main" {
 		prompt := promptui.Prompt{

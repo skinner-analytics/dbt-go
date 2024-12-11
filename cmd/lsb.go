@@ -17,8 +17,8 @@ func init() {
 }
 
 var lsbCmd = &cobra.Command{
-	Use:   root.Render("lsb"),
-	Short: "List changed files on the current branch",
+	Use:   "lsb",
+	Short: "List changed files on the current branch.",
 	Long:  `By default, lists only changed .sql and .yml files. Use --all to show all changed files.`,
 	RunE:  runLsb,
 }
@@ -44,19 +44,19 @@ func runLsb(cmd *cobra.Command, args []string) error {
 
 		if showAllFiles || isSqlOrYaml {
 			if isSqlOrYaml {
-				cmd.Println(dbt.Render(file))
+				cmd.Println(orange_indent.Render(file))
 				sqlOrYamlFound = true
 			} else if showAllFiles {
-				cmd.Println(dbt.Render(file))
+				cmd.Println(orange_indent.Render(file))
 			}
 			filesFound = true
 		}
 	}
 
 	if !filesFound {
-		cmd.Println(dbt.Render("No files were changed."))
+		cmd.Println(orange_indent.Render("No files were changed."))
 	} else if !showAllFiles && !sqlOrYamlFound {
-		cmd.Println(dbt.Render("No .sql or .yml files were changed."))
+		cmd.Println(orange_indent.Render("No .sql or .yml files were changed."))
 	}
 
 	return nil

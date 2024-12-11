@@ -21,11 +21,11 @@ func Execute() {
 }
 
 var rootCmd = &cobra.Command{
-	Use:   root.Render("dg"),
-	Short: root.Render("dbt-go is a cli written in GO to help improve the DX of Analytics Engineers using dbt"),
+	Use:   orange.Render("dg"),
+	Short: orange.Render("dbt-go is a cli written in GO to help improve the DX of Analytics Engineers using with dbt."),
 	Long: func() string {
 		asciiArt := getASCIIArt()
-		description := root.Render("dbt-go is a cli written in GO to help improve the DX of Analytics Engineers using dbt")
+		description := orange.Render("dbt-go is a cli written in GO to help improve the DX of Analytics Engineers using with dbt.")
 		copyright := "Copyright © 2024 Matthew Skinner"
 		contact := "matthew@skinnerdev.com"
 
