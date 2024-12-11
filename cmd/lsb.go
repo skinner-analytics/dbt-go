@@ -11,6 +11,15 @@ import (
 	"github.com/spf13/cobra"
 )
 
+var lsbCmd = &cobra.Command{
+	Use:   "lsb",
+	Short: "List changed files on the current branch",
+	Long:  `By default, lists only changed .sql and .yml files. Use --all to show all changed files.`,
+	RunE:  runLsb,
+}
+
+var showAllFiles bool
+
 func runLsb(cmd *cobra.Command, args []string) error {
 	output, err := exec.Command("git", "diff", "--name-only", "HEAD", "origin/main").Output()
 	if err != nil {
@@ -33,7 +42,7 @@ func runLsb(cmd *cobra.Command, args []string) error {
 				cmd.Println(dbt.Render(file))
 				sqlOrYamlFound = true
 			} else if showAllFiles {
-				cmd.Println(dbt.Render(file)) // Ensure consistent formatting
+				cmd.Println(dbt.Render(file))
 			}
 			filesFound = true
 		}
