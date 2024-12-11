@@ -27,4 +27,5 @@ Open Source dbt CLI Wrapper that aims to increase DX for Analytics Engineers
 
 ### Tools
  - https://github.com/git/git
+ - https://github.com/cli/cli
  - https://github.com/dbt-labs/dbt-core
