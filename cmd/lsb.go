@@ -11,6 +11,11 @@ import (
 	"github.com/spf13/cobra"
 )
 
+func init() {
+	rootCmd.AddCommand(lsbCmd)
+	lsbCmd.Flags().BoolVarP(&showAllFiles, "all", "a", false, "Show all changed files, not just .sql and .yml")
+}
+
 var lsbCmd = &cobra.Command{
 	Use:   root.Render("lsb"),
 	Short: "List changed files on the current branch",

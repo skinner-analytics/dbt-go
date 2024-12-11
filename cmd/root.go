@@ -13,11 +13,6 @@ import (
 
 // https://github.com/spf13/cobra/blob/main/README.md
 
-func init() {
-	rootCmd.AddCommand(lsbCmd)
-	lsbCmd.Flags().BoolVarP(&showAllFiles, "all", "a", false, "Show all changed files, not just .sql and .yml")
-}
-
 func Execute() {
 	err := rootCmd.Execute()
 	if err != nil {
@@ -40,7 +35,6 @@ var rootCmd = &cobra.Command{
 		centeredCopyright := centerText(copyright, width)
 		centeredContact := centerText(contact, width)
 
-		// Center each line of the ASCII art
 		lines := strings.Split(asciiArt, "\n")
 		centeredLines := make([]string, len(lines))
 		for i, line := range lines {
