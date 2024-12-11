@@ -4,7 +4,9 @@ Copyright © 2024 Matthew Skinner matthew@skinnerdev.com
 package cmd
 
 import (
+	"fmt"
 	"os"
+	"strings"
 
 	"github.com/spf13/cobra"
 )
@@ -25,10 +27,35 @@ func Execute() {
 
 var rootCmd = &cobra.Command{
 	Use:   root.Render("dg"),
-	Short: root.Render("dbt-go is a tool writing in GO to help improve the dx of dbt"),
-	Long: dbt.Render(`dbt-go works to improve the DX of the dbt cli. For example:
+	Short: root.Render("dbt-go is a cli written in GO to help improve the DX of Analytics Engineers using dbt"),
+	Long: func() string {
+		asciiArt := getASCIIArt()
+		description := root.Render("dbt-go is a cli written in GO to help improve the DX of Analytics Engineers using dbt")
+		copyright := "Copyright © 2024 Matthew Skinner"
+		contact := "matthew@skinnerdev.com"
 
-This tool simplifies complex command-line operations by packaging 
-long commands into easy-to-use shortcuts. You can run the same 
-complex tasks with simple commands.`),
+		width := 80
+
+		centeredDescription := centerText(description, width)
+		centeredCopyright := centerText(copyright, width)
+		centeredContact := centerText(contact, width)
+
+		// Center each line of the ASCII art
+		lines := strings.Split(asciiArt, "\n")
+		centeredLines := make([]string, len(lines))
+		for i, line := range lines {
+			centeredLines[i] = centerText(line, width)
+		}
+
+		centeredAsciiArt := strings.Join(centeredLines, "\n")
+
+		return fmt.Sprintf(`
+%s
+
+%s
+
+%s
+%s
+`, centeredDescription, centeredAsciiArt, centeredCopyright, centeredContact)
+	}(),
 }
