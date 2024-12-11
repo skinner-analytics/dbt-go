@@ -28,10 +28,18 @@ var dbt = lipgloss.NewStyle().
 //////// styles ////////
 ////////////////////////
 
+//////////////////////////////////
+//////// main entry point ////////
+
+// list commands and aruguements from your function here
+
 func init() {
 	rootCmd.AddCommand(lsbCmd)
 	lsbCmd.Flags().BoolVarP(&showAllFiles, "all", "a", false, "Show all changed files, not just .sql and .yml")
 }
+
+//////// main entry point ////////
+//////////////////////////////////
 
 ///////////////////////////
 //////// commands ////////
