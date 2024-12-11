@@ -1,0 +1,29 @@
+{
+  "name": "Go Dev Container",
+  "image": "mcr.microsoft.com/devcontainers/go:1.23",
+  "features": {
+    "ghcr.io/devcontainers/features/docker-in-docker:2": {}
+  },
+  "postCreateCommand": "go mod tidy",
+  "remoteUser": "vscode",
+  "mounts": [
+    "source=${localWorkspaceFolder},target=/workspace,type=bind,consistency=cached"
+  ],
+  "workspaceFolder": "/workspace",
+  "forwardPorts": [8080],
+  "customizations": {
+    "vscode": {
+      "settings": {
+        "go.formatTool": "gofmt",
+        "go.lintTool": "golangci-lint",
+        "go.useLanguageServer": true,
+        "editor.formatOnSave": true
+      },
+      "extensions": [
+        "golang.go",
+        "streetsidesoftware.code-spell-checker",
+        "editorconfig.editorconfig"
+      ]
+    }
+  }
+}
