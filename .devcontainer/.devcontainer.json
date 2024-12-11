@@ -14,10 +14,14 @@
   "customizations": {
     "vscode": {
       "settings": {
+        "editor.formatOnSave": true,
         "go.formatTool": "gofmt",
         "go.lintTool": "golangci-lint",
         "go.useLanguageServer": true,
-        "editor.formatOnSave": true
+        "go.lintOnSave": "workspace",
+        "go.vetOnSave": "workspace",
+        "go.testOnSave": false,
+        "go.coverOnSave": false
       },
       "extensions": [
         "golang.go",
