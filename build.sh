@@ -21,7 +21,7 @@ if [ $? -eq 0 ]; then
     
     # Install the program
     echo "Installing $PROGRAM_NAME..."
-    mv dg /user/local/bin
+    mv dg /usr/local/bin/
     
     if [ $? -eq 0 ]; then
         echo "Installation successful."

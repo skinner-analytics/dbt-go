@@ -9,8 +9,32 @@ import (
 	"os/exec"
 	"strings"
 
+	"github.com/charmbracelet/lipgloss"
 	"github.com/spf13/cobra"
 )
+
+////////////////////////
+//////// styles ////////
+
+var dbt = lipgloss.NewStyle().
+	Bold(true).
+	Foreground(lipgloss.Color("#FF694A")).
+	// Background(lipgloss.Color("#7D56F4")).
+	PaddingTop(1).
+	PaddingLeft(2).
+	Width(60)
+
+//////// styles ////////
+////////////////////////
+
+func init() {
+	rootCmd.Flags().BoolP("toggle", "t", false, "Help message for toggle")
+	rootCmd.AddCommand(lsbCmd)
+	lsbCmd.Flags().BoolVarP(&showAllFiles, "all", "a", false, "Show all changed files, not just .sql and .yml")
+}
+
+///////////////////////////
+//////// commands ////////
 
 var rootCmd = &cobra.Command{
 	Use:   "dg",
@@ -38,17 +62,17 @@ var runCmd = &cobra.Command{
 
 var showAllFiles bool
 
+//////// commands ////////
+///////////////////////////
+
+///////////////////////////
+//////// functions ////////
+
 func Execute() {
 	err := rootCmd.Execute()
 	if err != nil {
 		os.Exit(1)
 	}
-}
-
-func init() {
-	rootCmd.Flags().BoolP("toggle", "t", false, "Help message for toggle")
-	rootCmd.AddCommand(lsbCmd)
-	lsbCmd.Flags().BoolVarP(&showAllFiles, "all", "a", false, "Show all changed files, not just .sql and .yml")
 }
 
 func runLsb(cmd *cobra.Command, args []string) error {
@@ -69,7 +93,7 @@ func runLsb(cmd *cobra.Command, args []string) error {
 		isSqlOrYaml := strings.HasSuffix(file, ".sql") || strings.HasSuffix(file, ".yml")
 
 		if showAllFiles || isSqlOrYaml {
-			cmd.Println(file)
+			cmd.Println(dbt.Render(file))
 			filesFound = true
 			if isSqlOrYaml {
 				sqlOrYamlFound = true
@@ -78,15 +102,18 @@ func runLsb(cmd *cobra.Command, args []string) error {
 	}
 
 	if !filesFound {
-		cmd.Println("No files were changed.")
+		cmd.Println(dbt.Render("No files were changed."))
 	} else if !showAllFiles && !sqlOrYamlFound {
-		cmd.Println("No .sql or .yml files were changed.")
+		cmd.Println(dbt.Render("No .sql or .yml files were changed."))
 	}
 
 	return nil
 }
 
 func runRun(cmd *cobra.Command, args []string) error {
-	fmt.Println("Running dbt commands")
+	fmt.Println(dbt.Render("Running dbt commands"))
 	return nil
 }
+
+//////// functions ////////
+///////////////////////////
