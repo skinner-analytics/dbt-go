@@ -20,7 +20,7 @@ import (
 
 var dbt = lipgloss.NewStyle().
 	Bold(true).
-	Foreground(lipgloss.Color("#FF694A")).
+	Foreground(lipgloss.AdaptiveColor{Light: "#FF694A", Dark: "FFF"}).
 	PaddingTop(1).
 	PaddingLeft(2).
 	Width(60)
