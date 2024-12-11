@@ -1,0 +1,23 @@
+# Set text file handling for Go source code and common text-based files
+*.go text eol=lf
+*.mod text eol=lf
+*.sum text eol=lf
+*.md text eol=lf
+*.yaml text eol=lf
+*.yml text eol=lf
+*.json text eol=lf
+*.Makefile text eol=lf
+*.gitignore text eol=lf
+
+# Exclude binary files from diffing
+*.exe binary
+*.dll binary
+*.so binary
+*.o binary
+*.a binary
+
+# Mark lock files as binary to avoid conflicts
+go.sum binary
+
+# Default behavior for text files
+* text=auto
