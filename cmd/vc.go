@@ -33,9 +33,102 @@ func runVc(cmd *cobra.Command, args []string) error {
 
 	fmt.Printf("%s %s\n", orange.Render("Current branch:"), currentBranch)
 
-	if currentBranch != "main" {
+	// Fetch the latest changes from the remote repository
+	fetchCmd := exec.Command("git", "fetch")
+	if err := fetchCmd.Run(); err != nil {
+		return fmt.Errorf("error fetching changes: %v", err)
+	}
+
+	// Check if there are any changes on the remote main branch
+	compareCmd := exec.Command("git", "rev-list", "HEAD...origin/main", "--count")
+	compareOutput, err := compareCmd.Output()
+	if err != nil {
+		return fmt.Errorf("error comparing branches: %v", err)
+	}
+	changesCount := strings.TrimSpace(string(compareOutput))
+
+	if changesCount == "0" {
+		fmt.Println("No changes to pull from main.")
+		return nil
+	}
+
+	// Perform the merge without committing
+	mergeCmd := exec.Command("git", "merge", "origin/main", "--no-commit")
+	mergeOutput, err := mergeCmd.CombinedOutput()
+	if err != nil {
+		if strings.Contains(string(mergeOutput), "CONFLICT") {
+			fmt.Println("Merge conflicts detected. Please resolve them manually.")
+		} else {
+			return fmt.Errorf("error merging changes: %v\n%s", err, mergeOutput)
+		}
+	}
+
+	// Check for conflicts
+	diffCmd := exec.Command("git", "diff", "--name-only", "--diff-filter=U")
+	diffOutput, err := diffCmd.Output()
+	if err != nil {
+		return fmt.Errorf("error checking for conflicts: %v", err)
+	}
+
+	conflictingFiles := strings.Split(strings.TrimSpace(string(diffOutput)), "\n")
+
+	if len(conflictingFiles) > 0 && conflictingFiles[0] != "" {
+		fmt.Println("The following files have conflicts:")
+		for _, file := range conflictingFiles {
+			fmt.Println("-", file)
+		}
+
+		for _, file := range conflictingFiles {
+			prompt := promptui.Select{
+				Label: fmt.Sprintf("Resolve conflict for %s", file),
+				Items: []string{"Accept Incoming", "Accept Current"},
+			}
+
+			_, result, err := prompt.Run()
+			if err != nil {
+				return fmt.Errorf("prompt failed: %v", err)
+			}
+
+			var resolveCmd *exec.Cmd
+			if result == "Accept Incoming" {
+				resolveCmd = exec.Command("git", "checkout", "--theirs", file)
+			} else {
+				resolveCmd = exec.Command("git", "checkout", "--ours", file)
+			}
+
+			if err := resolveCmd.Run(); err != nil {
+				return fmt.Errorf("error resolving conflict for %s: %v", file, err)
+			}
+
+			addCmd := exec.Command("git", "add", file)
+			if err := addCmd.Run(); err != nil {
+				return fmt.Errorf("error adding resolved file %s: %v", file, err)
+			}
+		}
+
+		commitCmd := exec.Command("git", "commit", "-m", "Resolve merge conflicts and merge changes from main")
+		commitOutput, err := commitCmd.CombinedOutput()
+		if err != nil {
+			return fmt.Errorf("error committing changes: %v\n%s", err, commitOutput)
+		}
+		fmt.Println("Successfully resolved conflicts and committed changes.")
+	} else {
+		// Commit the changes if there are no conflicts
+		commitCmd := exec.Command("git", "commit", "-m", "Merge changes from main")
+		commitOutput, err := commitCmd.CombinedOutput()
+		if err != nil {
+			return fmt.Errorf("error committing changes: %v\n%s", err, commitOutput)
+		}
+		fmt.Println("Successfully pulled and committed changes from main.")
+	}
+
+	// Check if the branch is already published
+	branchCheckCmd := exec.Command("git", "rev-parse", "--symbolic-full-name", "--abbrev-ref", "@{u}")
+	_, err = branchCheckCmd.Output()
+	if err != nil {
+		// Branch is not published, ask the user if they want to publish it
 		prompt := promptui.Prompt{
-			Label:     "Pull changes from main into this branch?",
+			Label:     "Branch is not published. Would you like to publish it to the remote?",
 			IsConfirm: true,
 		}
 
@@ -45,14 +138,14 @@ func runVc(cmd *cobra.Command, args []string) error {
 		}
 
 		if strings.ToLower(result) == "y" {
-			mergeBaseCmd := exec.Command("git", "merge-base", currentBranch, "main")
-			mergeBaseOutput, err := mergeBaseCmd.Output()
+			// pushCmd := exec.Command("git", "push", "--set-upstream", "origin", currentBranch)
+			// pushOutput, err := pushCmd.CombinedOutput()
 			if err != nil {
 				return fmt.Errorf(red.Render("Error checking merge-base: %v"), err)
 			}
-			mergeBase := strings.TrimSpace(string(mergeBaseOutput))
+			// mergeBase := strings.TrimSpace(string(mergeBaseOutput))
 
-			diffCmd := exec.Command("git", "diff", mergeBase, "main", "--name-only")
+			// diffCmd := exec.Command("git", "diff", mergeBase, "main", "--name-only")
 			diffOutput, err := diffCmd.Output()
 			if err != nil {
 				return fmt.Errorf(red.Render("Error checking for conflicts: %v"), err)
@@ -86,6 +179,14 @@ func runVc(cmd *cobra.Command, args []string) error {
 			}
 			fmt.Println(orange.Render("Successfully pulled changes from main."))
 		}
+	} else {
+		// Branch is already published, push the changes
+		pushCmd := exec.Command("git", "push")
+		pushOutput, err := pushCmd.CombinedOutput()
+		if err != nil {
+			return fmt.Errorf("error pushing changes: %v\n%s", err, pushOutput)
+		}
+		fmt.Println("Successfully pushed the changes to the remote.")
 	}
 
 	return nil
