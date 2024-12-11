@@ -22,6 +22,7 @@ Open Source dbt CLI Wrapper that aims to increase DX for Analytics Engineers
 
 ### Go
  - https://github.com/spf13/cobra-cli
+ - https://github.com/charmbracelet/bubbletea (coming soon)
  - https://github.com/charmbracelet/lipgloss
 
 ### Tools
