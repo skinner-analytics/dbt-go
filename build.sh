@@ -13,7 +13,7 @@ fi
 
 # Build the program
 echo "Building $PROGRAM_NAME..."
-go build -o $PROGRAM_NAME
+go build
 
 # Check if the build was successful
 if [ $? -eq 0 ]; then
@@ -21,7 +21,7 @@ if [ $? -eq 0 ]; then
     
     # Install the program
     echo "Installing $PROGRAM_NAME..."
-    go install
+    mv dg /user/local/bin
     
     if [ $? -eq 0 ]; then
         echo "Installation successful."
