@@ -17,7 +17,7 @@ func init() {
 }
 
 var lsbCmd = &cobra.Command{
-	Use:   root.Render("lsb"),
+	Use:   orange.Render("lsb"),
 	Short: "List changed files on the current branch",
 	Long:  `By default, lists only changed .sql and .yml files. Use --all to show all changed files.`,
 	RunE:  runLsb,

@@ -9,9 +9,13 @@ import (
 
 // https://github.com/charmbracelet/lipgloss/blob/master/README.md
 
-var root = lipgloss.NewStyle().
+var orange = lipgloss.NewStyle().
 	Bold(true).
 	Foreground(lipgloss.Color("#FF694A"))
+
+var red = lipgloss.NewStyle().
+	Bold(true).
+	Foreground(lipgloss.Color("#FF2C2C"))
 
 var dbt = lipgloss.NewStyle().
 	Bold(true).

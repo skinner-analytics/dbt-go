@@ -27,11 +27,11 @@ func runVc(cmd *cobra.Command, args []string) error {
 	branchCmd := exec.Command("git", "rev-parse", "--abbrev-ref", "HEAD")
 	branchOutput, err := branchCmd.Output()
 	if err != nil {
-		return fmt.Errorf("error getting current branch: %v", err)
+		return fmt.Errorf(red.Render("Error getting current branch: %v"), err)
 	}
 	currentBranch := strings.TrimSpace(string(branchOutput))
 
-	fmt.Printf("%s %s\n", root.Render("Current branch:"), currentBranch)
+	fmt.Printf("%s %s\n", orange.Render("Current branch:"), currentBranch)
 
 	if currentBranch != "main" {
 		prompt := promptui.Prompt{
@@ -41,27 +41,27 @@ func runVc(cmd *cobra.Command, args []string) error {
 
 		result, err := prompt.Run()
 		if err != nil {
-			return fmt.Errorf("prompt failed: %v", err)
+			return fmt.Errorf(red.Render("Prompt failed: %v"), err)
 		}
 
 		if strings.ToLower(result) == "y" {
 			mergeBaseCmd := exec.Command("git", "merge-base", currentBranch, "main")
 			mergeBaseOutput, err := mergeBaseCmd.Output()
 			if err != nil {
-				return fmt.Errorf("error checking merge-base: %v", err)
+				return fmt.Errorf(red.Render("Error checking merge-base: %v"), err)
 			}
 			mergeBase := strings.TrimSpace(string(mergeBaseOutput))
 
 			diffCmd := exec.Command("git", "diff", mergeBase, "main", "--name-only")
 			diffOutput, err := diffCmd.Output()
 			if err != nil {
-				return fmt.Errorf("error checking for conflicts: %v", err)
+				return fmt.Errorf(red.Render("Error checking for conflicts: %v"), err)
 			}
 
 			conflictingFiles := strings.Split(strings.TrimSpace(string(diffOutput)), "\n")
 
 			if len(conflictingFiles) > 0 && conflictingFiles[0] != "" {
-				fmt.Println("Warning: The following files may have conflicts:")
+				fmt.Println(orange.Render("Warning: The following files may have conflicts:"))
 				for _, file := range conflictingFiles {
 					fmt.Println("-", file)
 				}
@@ -71,10 +71,10 @@ func runVc(cmd *cobra.Command, args []string) error {
 				}
 				confirmResult, err := confirmPrompt.Run()
 				if err != nil {
-					return fmt.Errorf("confirmation prompt failed: %v", err)
+					return fmt.Errorf(red.Render("Confirmation prompt failed: %v"), err)
 				}
 				if strings.ToLower(confirmResult) != "y" {
-					fmt.Println("Pull operation cancelled.")
+					fmt.Println(orange.Render("Pull operation cancelled."))
 					return nil
 				}
 			}
@@ -82,9 +82,9 @@ func runVc(cmd *cobra.Command, args []string) error {
 			pullCmd := exec.Command("git", "pull", "origin", "main")
 			pullOutput, err := pullCmd.CombinedOutput()
 			if err != nil {
-				return fmt.Errorf("error pulling changes: %v\n%s", err, pullOutput)
+				return fmt.Errorf(red.Render("Error pulling changes: %v\n%s"), err, pullOutput)
 			}
-			fmt.Println("Successfully pulled changes from main.")
+			fmt.Println(orange.Render("Successfully pulled changes from main."))
 		}
 	}
 
