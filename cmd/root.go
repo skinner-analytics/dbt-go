@@ -16,10 +16,11 @@ import (
 ////////////////////////
 //////// styles ////////
 
+// https://github.com/charmbracelet/lipgloss/blob/master/README.md
+
 var dbt = lipgloss.NewStyle().
 	Bold(true).
 	Foreground(lipgloss.Color("#FF694A")).
-	// Background(lipgloss.Color("#7D56F4")).
 	PaddingTop(1).
 	PaddingLeft(2).
 	Width(60)
