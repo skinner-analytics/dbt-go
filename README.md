@@ -16,3 +16,9 @@ Open Source dbt CLI Wrapper that aims to increase DX for Analytics Engineers
 - add modules for specific adapters such as BigQuery, Snowflake
 - dbt secure (run DCL,IAM,etc seperate from transformation commands)
 - many more to come...
+
+
+# dependencies
+
+https://github.com/spf13/cobra-cli
+https://github.com/charmbracelet/lipgloss
