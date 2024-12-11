@@ -20,10 +20,10 @@ import (
 
 var dbt = lipgloss.NewStyle().
 	Bold(true).
-	Foreground(lipgloss.AdaptiveColor{Light: "#FFF", Dark: "FF694A"}).
+	Foreground(lipgloss.Color("#FF694A")).
 	PaddingTop(1).
 	PaddingLeft(2).
-	Width(60)
+	Width(120)
 
 //////// styles ////////
 ////////////////////////
@@ -52,13 +52,6 @@ var lsbCmd = &cobra.Command{
 	Short: "List changed files on the current branch",
 	Long:  `By default, lists only changed .sql and .yml files. Use --all to show all changed files.`,
 	RunE:  runLsb,
-}
-
-var runCmd = &cobra.Command{
-	Use:   "run",
-	Short: "Run dbt commands",
-	Long:  `Run dbt commands.`,
-	RunE:  runRun,
 }
 
 var showAllFiles bool
@@ -94,11 +87,13 @@ func runLsb(cmd *cobra.Command, args []string) error {
 		isSqlOrYaml := strings.HasSuffix(file, ".sql") || strings.HasSuffix(file, ".yml")
 
 		if showAllFiles || isSqlOrYaml {
-			cmd.Println(dbt.Render(file))
-			filesFound = true
 			if isSqlOrYaml {
+				cmd.Println(dbt.Render(file))
 				sqlOrYamlFound = true
+			} else if showAllFiles {
+				cmd.Println(dbt.Render(file)) // Ensure consistent formatting
 			}
+			filesFound = true
 		}
 	}
 
@@ -108,11 +103,6 @@ func runLsb(cmd *cobra.Command, args []string) error {
 		cmd.Println(dbt.Render("No .sql or .yml files were changed."))
 	}
 
-	return nil
-}
-
-func runRun(cmd *cobra.Command, args []string) error {
-	fmt.Println(dbt.Render("Running dbt commands"))
 	return nil
 }
 
