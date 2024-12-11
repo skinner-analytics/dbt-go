@@ -1,6 +1,10 @@
+/*
+Copyright © 2024 Matthew Skinner matthew@skinnerdev.com
+*/
 package main
 
 import (
+	"dg/cmd"
 	"fmt"
 	"os"
 	"os/exec"
@@ -8,7 +12,7 @@ import (
 )
 
 func main() {
-
+	cmd.Execute()
 	if len(os.Args) > 1 && os.Args[1] == "lsb" {
 		listChangedFiles()
 	}
