@@ -24,8 +24,8 @@ func Execute() {
 }
 
 var rootCmd = &cobra.Command{
-	Use:   "dg",
-	Short: dbt.Render("dbt-go is a tool writing in GO to help improve the dx of dbt"),
+	Use:   root.Render("dg"),
+	Short: root.Render("dbt-go is a tool writing in GO to help improve the dx of dbt"),
 	Long: dbt.Render(`dbt-go works to improve the DX of the dbt cli. For example:
 
 This tool simplifies complex command-line operations by packaging 

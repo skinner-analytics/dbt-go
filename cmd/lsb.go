@@ -12,7 +12,7 @@ import (
 )
 
 var lsbCmd = &cobra.Command{
-	Use:   "lsb",
+	Use:   root.Render("lsb"),
 	Short: "List changed files on the current branch",
 	Long:  `By default, lists only changed .sql and .yml files. Use --all to show all changed files.`,
 	RunE:  runLsb,
