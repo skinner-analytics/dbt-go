@@ -29,6 +29,13 @@ var lsbCmd = &cobra.Command{
 	RunE:  runLsb,
 }
 
+var runCmd = &cobra.Command{
+	Use:   "run",
+	Short: "Run dbt commands",
+	Long:  `Run dbt commands.`,
+	RunE:  runRun,
+}
+
 var showAllFiles bool
 
 func Execute() {
@@ -76,5 +83,10 @@ func runLsb(cmd *cobra.Command, args []string) error {
 		cmd.Println("No .sql or .yml files were changed.")
 	}
 
+	return nil
+}
+
+func runRun(cmd *cobra.Command, args []string) error {
+	fmt.Println("Running dbt commands")
 	return nil
 }
