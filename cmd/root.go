@@ -1,9 +1,7 @@
-/*
-Copyright © 2024 Matthew Skinner matthew@skinnerdev.com
-*/
 package cmd
 
 import (
+	"dg/style"
 	"fmt"
 	"os"
 	"strings"
@@ -21,24 +19,24 @@ func Execute() {
 }
 
 var rootCmd = &cobra.Command{
-	Use:   orange.Render("dg"),
-	Short: orange.Render("dbt-go is a cli written in GO to help improve the DX of Analytics Engineers using dbt"),
+	Use:   style.Orange.Render("dg"),
+	Short: style.Orange.Render("dbt-go is a cli written in GO to help improve the DX of Analytics Engineers using dbt"),
 	Long: func() string {
-		asciiArt := getASCIIArt()
-		description := orange.Render("dbt-go is a cli written in GO to help improve the DX of Analytics Engineers using dbt")
+		asciiArt := style.GetASCIIArt()
+		description := style.Orange.Render("dbt-go is a cli written in GO to help improve the DX of Analytics Engineers using dbt")
 		copyright := "Copyright © 2024 Matthew Skinner"
 		contact := "matthew@skinnerdev.com"
 
 		width := 80
 
-		centeredDescription := centerText(description, width)
-		centeredCopyright := centerText(copyright, width)
-		centeredContact := centerText(contact, width)
+		centeredDescription := style.CenterText(description, width)
+		centeredCopyright := style.CenterText(copyright, width)
+		centeredContact := style.CenterText(contact, width)
 
 		lines := strings.Split(asciiArt, "\n")
 		centeredLines := make([]string, len(lines))
 		for i, line := range lines {
-			centeredLines[i] = centerText(line, width)
+			centeredLines[i] = style.CenterText(line, width)
 		}
 
 		centeredAsciiArt := strings.Join(centeredLines, "\n")

@@ -1,9 +1,7 @@
-/*
-Copyright © 2024 Matthew Skinner matthew@skinnerdev.com
-*/
 package cmd
 
 import (
+	"dg/style"
 	"fmt"
 	"os/exec"
 	"strings"
@@ -17,7 +15,7 @@ func init() {
 }
 
 var lsbCmd = &cobra.Command{
-	Use:   orange.Render("lsb"),
+	Use:   "lsb",
 	Short: "List changed files on the current branch",
 	Long:  `By default, lists only changed .sql and .yml files. Use --all to show all changed files.`,
 	RunE:  runLsb,
@@ -44,19 +42,19 @@ func runLsb(cmd *cobra.Command, args []string) error {
 
 		if showAllFiles || isSqlOrYaml {
 			if isSqlOrYaml {
-				cmd.Println(orange_indent.Render(file))
+				cmd.Println(style.OrangeIndent.Render(file))
 				sqlOrYamlFound = true
 			} else if showAllFiles {
-				cmd.Println(orange_indent.Render(file))
+				cmd.Println(style.OrangeIndent.Render(file))
 			}
 			filesFound = true
 		}
 	}
 
 	if !filesFound {
-		cmd.Println(orange_indent.Render("No files were changed."))
+		cmd.Println(style.OrangeIndent.Render("No files were changed."))
 	} else if !showAllFiles && !sqlOrYamlFound {
-		cmd.Println(orange_indent.Render("No .sql or .yml files were changed."))
+		cmd.Println(style.OrangeIndent.Render("No .sql or .yml files were changed."))
 	}
 
 	return nil
