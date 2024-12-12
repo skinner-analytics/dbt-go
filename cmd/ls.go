@@ -1,35 +1,34 @@
 package cmd
 
 import (
+	"dg/git"
 	"dg/style"
 	"fmt"
-	"os/exec"
 	"strings"
 
 	"github.com/spf13/cobra"
 )
 
 func init() {
-	rootCmd.AddCommand(lsbCmd)
-	lsbCmd.Flags().BoolVarP(&showAllFiles, "all", "a", false, "Show all changed files, not just .sql and .yml")
+	rootCmd.AddCommand(lsCmd)
+	lsCmd.Flags().BoolVarP(&showAllFiles, "all", "a", false, "Show all changed files, not just .sql and .yml")
 }
 
-var lsbCmd = &cobra.Command{
-	Use:   "lsb",
+var lsCmd = &cobra.Command{
+	Use:   "ls",
 	Short: "List changed files on the current branch",
 	Long:  `By default, lists only changed .sql and .yml files. Use --all to show all changed files.`,
-	RunE:  runLsb,
+	RunE:  runls,
 }
 
 var showAllFiles bool
 
-func runLsb(cmd *cobra.Command, args []string) error {
-	output, err := exec.Command("git", "diff", "--name-only", "HEAD", "origin/main").Output()
+func runls(cmd *cobra.Command, args []string) error {
+	files, err := git.GitDiff()
 	if err != nil {
-		return fmt.Errorf("error executing git diff: %v", err)
+		return fmt.Errorf("error getting changed files: %v", err)
 	}
 
-	files := strings.Split(string(output), "\n")
 	sqlOrYamlFound := false
 	filesFound := false
 
