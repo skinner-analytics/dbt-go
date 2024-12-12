@@ -1,7 +1,7 @@
 package cmd
 
 import (
-	"dg/git"
+	"dg/style"
 	"fmt"
 	"os"
 
@@ -21,16 +21,16 @@ var vcCmd = &cobra.Command{
 }
 
 func runVc(cmd *cobra.Command, args []string) error {
-	branch, err := git.GetCurrentBranch()
+	p := tea.NewProgram(vcModel{})
+
+	m, err := p.Run()
 	if err != nil {
-		return fmt.Errorf("failed to get current branch: %w", err)
+		fmt.Println("Oh no:", err)
+		os.Exit(1)
 	}
-	if branch == "origin/main" {
-		p := tea.NewProgram(initialVcModel())
-		if _, err := p.Run(); err != nil {
-			fmt.Printf("Alas, there's been an error: %v", err)
-			os.Exit(1)
-		}
+
+	if m, ok := m.(vcModel); ok && m.choice != "" {
+		fmt.Printf("\n---\nYou chose %s!\n", style.Orange.Render(m.choice))
 	}
 	return nil
 }
