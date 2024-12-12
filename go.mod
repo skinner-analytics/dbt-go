@@ -4,17 +4,15 @@ go 1.23
 
 require (
 	github.com/TheZoraiz/ascii-image-converter v1.13.1
+	github.com/charmbracelet/bubbletea v1.2.4
 	github.com/charmbracelet/lipgloss v1.0.0
-	github.com/manifoldco/promptui v0.9.0
 	github.com/spf13/cobra v1.8.1
 )
 
 require (
 	github.com/aymanbagabas/go-osc52/v2 v2.0.1 // indirect
-	github.com/charmbracelet/bubbletea v1.2.4 // indirect
 	github.com/charmbracelet/x/ansi v0.4.5 // indirect
 	github.com/charmbracelet/x/term v0.2.1 // indirect
-	github.com/chzyer/readline v0.0.0-20180603132655-2972be24d48e // indirect
 	github.com/disintegration/imaging v1.6.2 // indirect
 	github.com/erikgeiser/coninput v0.0.0-20211004153227-1c3628e74d0f // indirect
 	github.com/fogleman/gg v1.3.0 // indirect
