@@ -1,31 +1,111 @@
-# dbt-go
-Open Source dbt CLI Wrapper that aims to increase DX for Analytics Engineers
+# dg (dbt-go)
+Open Source CLI Wrapper for dbt/git that aims to increase DX for Analytics Engineers.
+
+## Table of Contents
+
+- [dg (dbt-go)](#dg-dbt-go)
+  - [Table of Contents](#table-of-contents)
+  - [Features](#features)
+  - [Installation on Unix Based Systems](#installation-on-unix-based-systems)
+  - [Usage](#usage)
+    - [Commands](#commands)
+  - [Development](#development)
+      - [Code Structure](#code-structure)
+      - [Dependencies](#dependencies)
+    - [Tools](#tools)
+    - [Development Setup](#development-setup)
+  - [Roadmap](#roadmap)
+      - [Project](#project)
+      - [CLI](#cli)
+  - [License](#license)
+
+## Features
+
+- Improved Developer Experience (DX) for Analytics Engineers using dbt
+- Simple interface to interact with version control
+- Slick Interactive TUI (Terminal User Interface)
+
+## Installation on Unix Based Systems
+
+To install `dg`, follow these steps:
+
+1. Clone the repository:
+    ```sh
+    git clone https://github.com/cognite-analytics/dbt-go.git
+    cd dbt-go
+    ```
+
+2. Build the project:
+    ```sh
+    make
+    ```
+
+## Usage
+
+To use `dbt-go`, run the following command from the root of your dbt project:
+```sh
+dg
+```
+
+### Commands
+`info`
+Show additional developer information about dbt-go.
+
+`ls`
+List changed files on the current branch.
+
+`vc`
+Interactive Git Experience.
+
+## Development
+
+#### Code Structure
+```
+cmd/ - Core CLI Commands
+git/ - Reusable Git Functions
+style/ - Color & Styling Definitions
+```
+
+#### Dependencies
+
+Go modules:
+
+ - github.com/spf13/cobra
+ - github.com/charmbracelet/bubbletea
+ - github.com/charmbracelet/lipgloss
+ - github.com/TheZoraiz/ascii-image-converter
+
+### Tools
+ - [Git](https://github.com/git/git)
+ - [dbt](https://github.com/dbt-labs/dbt-core)
+
+### Development Setup
+- Install Go (version 1.23 or later).
+- Clone the repository and navigate to the project directory.
+- Build and install the project using the provided Makefile.
 
 ## Roadmap
 
-- add styling
+#### Project
+
 - add issue template
 - add pr template
 - add CI testing
 - add CD pipeline
 - define release schedule
 - figure out contributor agreement, currently using GPL3 license
-- add simple `merge resolution` TUI to simplify merging main to a branch before CI
-- Add commands to parse and run changed models and their children
-- CI commands to simplify and stream line models triggered in CI
-- add modules for specific adapters such as BigQuery, Snowflake
-- dbt secure (run DCL,IAM,etc seperate from transformation commands)
-- many more to come...
 
 
-## dependencies
+#### CLI
+- `git`
+  - add `merge resolution` TUI to simplify merging main in to a feature branch before pushing to remote
+- `dbt`
+    - Add commands to parse and run changed models instead of relying on dbt's graph operations
+    - CI commands to simplify and stream line models triggered in CI and the CI process
+    - add modules for specific adapters such as BigQuery, Snowflake
+    - dbt secure (run DCL,IAM,etc seperate from transformation commands)
+- `gh`
+  - integrate `gh` cli to take advantage of it's auth/features
 
-### Go
- - https://github.com/spf13/cobra-cli
- - https://github.com/charmbracelet/bubbletea (coming soon)
- - https://github.com/charmbracelet/lipgloss
-
-### Tools
- - https://github.com/git/git
- - https://github.com/cli/cli
- - https://github.com/dbt-labs/dbt-core
+## License
+This project is licensed under the GNU General Public License v3.0. See the [LICENSE](LICENSE) file for details.
