@@ -53,7 +53,7 @@ func runVc(cmd *cobra.Command, args []string) error {
 		return err
 	}
 
-	if err := git.CheckAndPublishBranch(currentBranch); err != nil {
+	if err := git.CheckAndPublishBranch(); err != nil {
 		return err
 	}
 

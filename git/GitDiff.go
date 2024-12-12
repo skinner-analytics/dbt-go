@@ -6,11 +6,12 @@ import (
 )
 
 func GitDiff() ([]string, error) {
-	output, err := exec.Command("git", "diff", "--name-only", "HEAD", "origin/main").Output()
+	uncommittedOutput, err := exec.Command("git", "diff", "--name-only").Output()
 	if err != nil {
 		return nil, err
 	}
 
-	files := strings.Split(string(output), "\n")
-	return files, nil
+	result := strings.Split(string(uncommittedOutput), "\n")
+
+	return result, nil
 }

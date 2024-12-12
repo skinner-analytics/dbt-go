@@ -8,10 +8,9 @@ import (
 )
 
 func GetCurrentBranch() (string, error) {
-	branchCmd := exec.Command("git", "rev-parse", "--abbrev-ref", "HEAD")
-	branchOutput, err := branchCmd.Output()
+	output, err := exec.Command("git", "rev-parse", "--symbolic-full-name", "--abbrev-ref", "@{u}").Output()
 	if err != nil {
 		return "", fmt.Errorf(style.Red.Render("Error getting current branch: %v"), err)
 	}
-	return strings.TrimSpace(string(branchOutput)), nil
+	return strings.TrimSpace(string(output)), nil
 }
