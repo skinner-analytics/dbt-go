@@ -38,9 +38,11 @@ func runVc(cmd *cobra.Command, args []string) error {
 			}
 			fmt.Println(output)
 		case "Select An Existing Branch":
-			// Handle selecting an existing branch
+			// add logic for selecting an existing branch
 		case "Exit":
-			// Handle exit
+			fmt.Println(" ")
+			fmt.Println("Baaiiiii! 👋")
+			os.Exit(0)
 		}
 	}
 	return nil
