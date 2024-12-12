@@ -14,6 +14,7 @@ type vcModel struct {
 	choice         string
 	branchName     string
 	creatingBranch bool
+	confirmed      bool
 }
 
 func (m vcModel) Init() tea.Cmd {
@@ -24,13 +25,14 @@ func (m vcModel) Update(msg tea.Msg) (tea.Model, tea.Cmd) {
 	switch msg := msg.(type) {
 	case tea.KeyMsg:
 		switch msg.String() {
-		case "ctrl+c", "q", "esc":
+		case "ctrl+c", "esc":
 			return m, tea.Quit
 
 		case "enter":
 			if m.creatingBranch {
 				m.branchName = strings.TrimSpace(m.branchName)
 				if m.branchName != "" {
+					m.confirmed = true
 					return m, tea.Quit
 				}
 			} else {
@@ -94,7 +96,7 @@ func (m vcModel) View() string {
 			s.WriteString("\n")
 		}
 		s.WriteString("\n")
-		s.WriteString(style.Orange.Render("(press q to quit)"))
+		s.WriteString(style.Orange.Render("(press esc or ctrl+c to quit)"))
 		s.WriteString("\n")
 	}
 	return s.String()

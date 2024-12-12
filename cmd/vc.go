@@ -32,13 +32,15 @@ func runVc(cmd *cobra.Command, args []string) error {
 	if m, ok := m.(vcModel); ok && m.choice != "" {
 		switch m.choice {
 		case "Create A New Branch":
-			output, err := git.NewBranch(m.branchName)
-			if err != nil {
-				return fmt.Errorf("error creating new branch: %v", err)
+			if m.confirmed {
+				output, err := git.NewBranch(m.branchName)
+				if err != nil {
+					return fmt.Errorf("error creating new branch: %v", err)
+				}
+				fmt.Println(output)
 			}
-			fmt.Println(output)
 		case "Select An Existing Branch":
-			// add logic for selecting an existing branch
+			// Handle selecting an existing branch
 		case "Exit":
 			fmt.Println(" ")
 			fmt.Println("Baaiiiii! 👋")
