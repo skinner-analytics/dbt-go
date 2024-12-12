@@ -1,7 +1,7 @@
 package cmd
 
 import (
-	"dg/style"
+	"dg/git"
 	"fmt"
 	"os"
 
@@ -30,7 +30,18 @@ func runVc(cmd *cobra.Command, args []string) error {
 	}
 
 	if m, ok := m.(vcModel); ok && m.choice != "" {
-		fmt.Printf("\n---\nYou chose %s!\n", style.Orange.Render(m.choice))
+		switch m.choice {
+		case "Create A New Branch":
+			output, err := git.NewBranch(m.branchName)
+			if err != nil {
+				return fmt.Errorf("error creating new branch: %v", err)
+			}
+			fmt.Println(output)
+		case "Select An Existing Branch":
+			// Handle selecting an existing branch
+		case "Exit":
+			// Handle exit
+		}
 	}
 	return nil
 }
