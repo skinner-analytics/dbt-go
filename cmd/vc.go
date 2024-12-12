@@ -2,9 +2,10 @@ package cmd
 
 import (
 	"dg/git"
-	"dg/style"
 	"fmt"
+	"os"
 
+	tea "github.com/charmbracelet/bubbletea"
 	"github.com/spf13/cobra"
 )
 
@@ -20,42 +21,16 @@ var vcCmd = &cobra.Command{
 }
 
 func runVc(cmd *cobra.Command, args []string) error {
-	currentBranch, err := git.GetCurrentBranch()
+	branch, err := git.GetCurrentBranch()
 	if err != nil {
-		return err
+		return fmt.Errorf("failed to get current branch: %w", err)
 	}
-
-	fmt.Printf("%s %s\n", style.Orange.Render("Current branch:"), currentBranch)
-
-	if err := git.FetchChanges(); err != nil {
-		return err
+	if branch == "origin/main" {
+		p := tea.NewProgram(initialVcModel())
+		if _, err := p.Run(); err != nil {
+			fmt.Printf("Alas, there's been an error: %v", err)
+			os.Exit(1)
+		}
 	}
-
-	changesCount, err := git.GetChangesCount()
-	if err != nil {
-		return err
-	}
-
-	if changesCount == "0" {
-		fmt.Println("No changes to pull from main.")
-		return nil
-	}
-
-	if err := git.MergeChanges(); err != nil {
-		return err
-	}
-
-	if err := git.CheckAndResolveConflicts(); err != nil {
-		return err
-	}
-
-	if err := git.CommitChanges(); err != nil {
-		return err
-	}
-
-	if err := git.CheckAndPublishBranch(); err != nil {
-		return err
-	}
-
 	return nil
 }
