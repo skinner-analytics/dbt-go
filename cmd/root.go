@@ -17,7 +17,7 @@ func Execute() {
 }
 
 var rootCmd = &cobra.Command{
-	Use:   style.Orange.Render("dg"),
-	Short: style.Orange.Render("\ndg is a cli written in GO to help improve the DX of Analytics Engineers using dbt"),
-	Long:  style.Orange.Render("dg is a cli written in GO to help improve the DX of Analytics Engineers using dbt"),
+	Use:   style.Dg.Render("dg"),
+	Short: style.Dg.Render("\ndg is a cli written in GO to help improve the DX of Analytics Engineers using dbt"),
+	Long:  style.Dg.Render("dg is a cli written in GO to help improve the DX of Analytics Engineers using dbt"),
 }

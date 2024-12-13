@@ -41,19 +41,19 @@ func runls(cmd *cobra.Command, args []string) error {
 
 		if showAllFiles || isSqlOrYaml {
 			if isSqlOrYaml {
-				cmd.Println(style.OrangeIndent.Render(file))
+				cmd.Println(style.DgIndent.Render(file))
 				sqlOrYamlFound = true
 			} else if showAllFiles {
-				cmd.Println(style.OrangeIndent.Render(file))
+				cmd.Println(style.DgIndent.Render(file))
 			}
 			filesFound = true
 		}
 	}
 
 	if !filesFound {
-		cmd.Println(style.OrangeIndent.Render("No files were changed."))
+		cmd.Println(style.DgIndent.Render("No files were changed."))
 	} else if !showAllFiles && !sqlOrYamlFound {
-		cmd.Println(style.OrangeIndent.Render("No .sql or .yml files were changed."))
+		cmd.Println(style.DgIndent.Render("No .sql or .yml files were changed."))
 	}
 
 	return nil

@@ -19,6 +19,6 @@ func main() {
 // 	println(style.LightGray.Render("LightGray"))
 // 	println(style.Gray.Render("Gray"))
 // 	println(style.DarkGray.Render("DarkGray"))
-// 	println(style.Orange.Render("Orange"))
-// 	println(style.OrangeIndent.Render("OrangeIndent"))
+// 	println(style.Dg.Render("Orange"))
+// 	println(style.DgIndent.Render("OrangeIndent"))
 // }

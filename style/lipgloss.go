@@ -35,11 +35,11 @@ var DarkGray = lipgloss.NewStyle().
 	Foreground(lipgloss.Color("#808080"))
 
 // dg colors
-var Orange = lipgloss.NewStyle().
-	Foreground(lipgloss.Color("#FFA500"))
+var Dg = lipgloss.NewStyle().
+	Foreground(lipgloss.Color("#c82896"))
 
-var OrangeIndent = lipgloss.NewStyle().
-	Foreground(lipgloss.Color("#FFA500")).
+var DgIndent = lipgloss.NewStyle().
+	Foreground(lipgloss.Color("#c82896")).
 	PaddingTop(1).
 	PaddingLeft(2).
 	Width(120)

@@ -15,30 +15,34 @@ func init() {
 var infoCmd = &cobra.Command{
 	Use:   "info",
 	Short: "Show Additional Developer Information About dbt-go",
-	Long: func() string {
-		asciiArt := style.GetASCIIArt()
-		copyright := "Copyright © 2024 Matthew Skinner"
-		contact := "matthew@skinnerdev.com"
+	Long:  "",
+	RunE:  runInfo,
+}
 
-		width := 80
+func runInfo(cmd *cobra.Command, args []string) error {
+	asciiArt := style.GetASCIIArt()
+	copyright := "Copyright © 2024 Matthew Skinner"
+	contact := "matthew@skinnerdev.com"
 
-		centeredCopyright := style.CenterText(copyright, width)
-		centeredContact := style.CenterText(contact, width)
+	width := 80
 
-		lines := strings.Split(asciiArt, "\n")
-		centeredLines := make([]string, len(lines))
-		for i, line := range lines {
-			centeredLines[i] = style.CenterText(line, width)
-		}
+	centeredCopyright := style.CenterText(copyright, width)
+	centeredContact := style.CenterText(contact, width)
 
-		centeredAsciiArt := strings.Join(centeredLines, "\n")
+	lines := strings.Split(asciiArt, "\n")
+	centeredLines := make([]string, len(lines))
+	for i, line := range lines {
+		centeredLines[i] = style.CenterText(line, width)
+	}
 
-		return fmt.Sprintf(`
+	centeredAsciiArt := strings.Join(centeredLines, "\n")
+
+	fmt.Printf(`
 
 %s
 
 %s
 %s
 `, centeredAsciiArt, centeredCopyright, centeredContact)
-	}(),
+	return nil
 }

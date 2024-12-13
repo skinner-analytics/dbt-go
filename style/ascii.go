@@ -28,8 +28,8 @@ func CenterText(text string, width int) string {
 func GetASCIIArt() string {
 	filePath := ".img/logo.png"
 	flags := aic_package.DefaultFlags()
-	flags.Dimensions = []int{26, 13}      // Adjust as needed
-	flags.FontColor = [3]int{255, 165, 0} // RGB for orange
+	flags.Dimensions = []int{26, 13}       // Adjust as needed
+	flags.FontColor = [3]int{200, 40, 150} // dg color
 
 	asciiArt, err := aic_package.Convert(filePath, flags)
 	if err != nil {

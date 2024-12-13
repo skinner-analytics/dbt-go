@@ -80,15 +80,15 @@ func (m vcModel) View() string {
 	s := strings.Builder{}
 	s.WriteString("\n")
 	if m.creatingBranch {
-		s.WriteString(style.Orange.Render("Enter the new branch name: "))
+		s.WriteString(style.Dg.Render("Enter the new branch name: "))
 		s.WriteString(m.branchName)
 	} else {
-		s.WriteString(style.Orange.Render("What would you like to do?"))
+		s.WriteString(style.Dg.Render("What would you like to do?"))
 		s.WriteString("\n\n")
 
 		for i := 0; i < len(vcChoices); i++ {
 			if m.cursor == i {
-				s.WriteString("(" + style.Orange.Render("*") + ") ")
+				s.WriteString("(" + style.Dg.Render("*") + ") ")
 			} else {
 				s.WriteString("( ) ")
 			}
@@ -96,7 +96,7 @@ func (m vcModel) View() string {
 			s.WriteString("\n")
 		}
 		s.WriteString("\n")
-		s.WriteString(style.Orange.Render("(press esc or ctrl+c to quit)"))
+		s.WriteString(style.Dg.Render("(press esc or ctrl+c to quit)"))
 		s.WriteString("\n")
 	}
 	return s.String()
