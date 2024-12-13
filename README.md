@@ -1,23 +1,23 @@
-# dg (dbt-go)
-Open Source CLI Wrapper for dbt/git that aims to increase DX for Analytics Engineers.
+<img src=".img/logo.png" alt="dg" width="200">
+<br><br>
+An open source CLI wrapper for dbt/git that aims to increase DX for Analytics Engineers.
 
 ## Table of Contents
 
-- [dg (dbt-go)](#dg-dbt-go)
-  - [Table of Contents](#table-of-contents)
-  - [Features](#features)
-  - [Installation on Unix Based Systems](#installation-on-unix-based-systems)
-  - [Usage](#usage)
-    - [Commands](#commands)
-  - [Development](#development)
-      - [Code Structure](#code-structure)
-      - [Dependencies](#dependencies)
-    - [Tools](#tools)
-    - [Development Setup](#development-setup)
-  - [Roadmap](#roadmap)
-      - [Project](#project)
-      - [CLI](#cli)
-  - [License](#license)
+- [Table of Contents](#table-of-contents)
+- [Features](#features)
+- [Installation on Unix Based Systems](#installation-on-unix-based-systems)
+- [Usage](#usage)
+  - [Commands](#commands)
+- [Development](#development)
+    - [Code Structure](#code-structure)
+    - [Dependencies](#dependencies)
+  - [Tools](#tools)
+  - [Development Setup](#development-setup)
+- [Roadmap](#roadmap)
+    - [Project](#project)
+    - [CLI](#cli)
+- [License](#license)
 
 ## Features
 
