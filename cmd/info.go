@@ -23,12 +23,12 @@ func runInfo(cmd *cobra.Command, args []string) error {
 	asciiArt := style.GetASCIIArt()
 	copyright := "Copyright © 2024 Matthew Skinner"
 	contact := "matthew@skinnerdev.com"
-
+	github := "https://github.com/cognite-analytics/dbt-go"
 	width := 80
 
 	centeredCopyright := style.CenterText(copyright, width)
 	centeredContact := style.CenterText(contact, width)
-
+	centeredLink := style.CenterText(github, width)
 	lines := strings.Split(asciiArt, "\n")
 	centeredLines := make([]string, len(lines))
 	for i, line := range lines {
@@ -43,6 +43,7 @@ func runInfo(cmd *cobra.Command, args []string) error {
 
 %s
 %s
-`, centeredAsciiArt, centeredCopyright, centeredContact)
+%s
+`, centeredAsciiArt, centeredCopyright, centeredContact, centeredLink)
 	return nil
 }
