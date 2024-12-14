@@ -21,9 +21,9 @@ var infoCmd = &cobra.Command{
 
 func runInfo(cmd *cobra.Command, args []string) error {
 	asciiArt := style.GetASCIIArt()
-	copyright := "Copyright © 2024 Matthew Skinner"
-	contact := "matthew@skinnerdev.com"
-	github := "https://github.com/cognite-analytics/dbt-go"
+	copyright := "Copyright © 2024"
+	contact := "Matthew Skinner -- matthew@skinnerdev.com"
+	github := "github.com/cognite-analytics/dbt-go"
 	width := 80
 
 	centeredCopyright := style.CenterText(copyright, width)
