@@ -1,5 +1,5 @@
 <img src=".img/logo.png" alt="dg" width="200">
-<br>
+<br><br>
 An open source CLI wrapper for dbt/git that aims to increase DX for Analytics Engineers.
 
 ## Table of Contents
