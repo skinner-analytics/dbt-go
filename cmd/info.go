@@ -20,7 +20,21 @@ var infoCmd = &cobra.Command{
 }
 
 func runInfo(cmd *cobra.Command, args []string) error {
-	asciiArt := style.GetASCIIArt()
+	asciiArt := `
+--------------------------
+--------------------------
+--------*@@*--------------
+------===+@#----===-------
+---=#@@@@%@#--+%@@@%%@%=--
+--=@@*==+%@#-+@%===#@@=---
+--+@*:--:+@*:%@=:-:-@%----
+--=%@*++*@@%++@@*++%@%----
+---=*%@@%#%%#-=#%%%#@@----
+----------------=+=*@#----
+---------------#@@@%*-----
+--------------------------
+--------------------------
+`
 	copyright := "Copyright © 2024"
 	contact := "Matthew Skinner -- matthew@skinnerdev.com"
 	github := "github.com/cognite-analytics/dbt-go"
@@ -36,14 +50,13 @@ func runInfo(cmd *cobra.Command, args []string) error {
 	}
 
 	centeredAsciiArt := strings.Join(centeredLines, "\n")
+	styledAsciiArt := style.Dg.Render(centeredAsciiArt)
 
-	fmt.Printf(`
+	fmt.Printf(`%s
 
 %s
-
 %s
 %s
-%s
-`, centeredAsciiArt, centeredCopyright, centeredContact, centeredLink)
+`, styledAsciiArt, centeredCopyright, centeredContact, centeredLink)
 	return nil
 }
