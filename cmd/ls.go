@@ -26,7 +26,7 @@ var showAllFiles bool
 func runls(cmd *cobra.Command, args []string) error {
 	files, err := git.GitDiff()
 	if err != nil {
-		return fmt.Errorf("error getting changed files: %v", err)
+		return fmt.Errorf("error getting changed files, you are not in a git repository: %v", err)
 	}
 
 	sqlOrYamlFound := false
